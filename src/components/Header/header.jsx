@@ -1,6 +1,11 @@
 import User from "../User/User";
+import { useState } from 'react';
 
-function Header() {
+function Header({addTask}) {
+  const [isOpened,setIsOpened] = useState(false); 
+  function togglePopUp() {
+    setIsOpened((isOpened) => !isOpened)
+  }
   return (
     <header className="header">
       <div className="container">
@@ -16,13 +21,13 @@ function Header() {
             </a>
           </div>
           <nav className="header__nav">
-            <button className="header__btn-main-new _hover01" id="btnMainNew">
-              <a href="#popNewCard">Создать новую задачу</a>
+            <button className="header__btn-main-new _hover01" id="btnMainNew" onClick={addTask}>
+              Создать новую задачу
             </button>
-            <a href="#user-set-target" className="header__user _hover02">
+            <a href="#" className="header__user _hover02" onClick={togglePopUp}>
               Ivan Ivanov
             </a>
-            <User />
+            {isOpened && <User />}
           </nav>
         </div>
       </div>
