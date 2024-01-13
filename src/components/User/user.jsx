@@ -1,8 +1,7 @@
 function User() {
   return (
     <div 
-    className="header__pop-user-set pop-user-set" 
-    id="user-set-target"
+    className="header__pop-user-set pop-user-set"
     >
       {/* <a href="">x</a> */}
       <p className="pop-user-set__name">Ivan Ivanov</p>

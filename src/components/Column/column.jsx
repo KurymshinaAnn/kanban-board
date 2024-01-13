@@ -7,8 +7,8 @@ function Column({ tasks, title }) {
         <p>{title}</p>
       </div>
       <div className="cards">
-        {tasks.map((task, index) => (
-          <Task key={index} task={task} />
+        {tasks.map((task) => (
+          <Task key={task.id} task={task} />
         ))}
       </div>
     </div>
