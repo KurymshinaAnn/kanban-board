@@ -1,4 +1,6 @@
 import Column from "../Column/Column";
+import { Container } from "../Common/Common.styled";
+import { Main, MainBlock, MainContent } from "./MainElement.styled";
 
 const statusList = [
   "Без статуса",
@@ -10,10 +12,10 @@ const statusList = [
 
 function MainElement({ tasks, isLoaded }) {
   return (
-    <main className="main">
-      <div className="container">
-        <div className="main__block">
-          <div className="main__content">
+    <Main>
+      <Container>
+        <MainBlock>
+          <MainContent>
             {isLoaded
               ? "Данные загружаются"
               : statusList.map((item) => (
@@ -23,10 +25,10 @@ function MainElement({ tasks, isLoaded }) {
                     title={item}
                   />
                 ))}
-          </div>
-        </div>
-      </div>
-    </main>
+          </MainContent>
+        </MainBlock>
+      </Container>
+    </Main>
   );
 }
 

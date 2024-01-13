@@ -6,6 +6,7 @@ import Header from "./components/Header/Header";
 import MainElement from "./components/MainElement/MainElement";
 import { demoTasks } from "./date";
 import { useEffect, useState } from "react";
+import { GlobalStyled } from "./Global.styled";
 
 function App() {
   const [tasks, setTasks] = useState(demoTasks);
@@ -15,8 +16,8 @@ function App() {
   useEffect(() => {
     setTimeout(() => {
       setIsLoaded(false);
-    }, 2000)
-  }, [])
+    }, 2000);
+  }, []);
 
   function addTask() {
     setTasks((prevTasks) => [
@@ -32,28 +33,31 @@ function App() {
   }
 
   return (
-    <div className="wrapper">
-      <div className="pop-exit" id="popExit">
-        <div className="pop-exit__container">
-          <Exit />
+    <>
+      <GlobalStyled />
+      <div className="wrapper">
+        <div className="pop-exit" id="popExit">
+          <div className="pop-exit__container">
+            <Exit />
+          </div>
         </div>
-      </div>
 
-      <div className="pop-new-card" id="popNewCard">
-        <div className="pop-new-card__container">
-          <NewTask />
+        <div className="pop-new-card" id="popNewCard">
+          <div className="pop-new-card__container">
+            <NewTask />
+          </div>
         </div>
-      </div>
 
-      <div className="pop-browse" id="popBrowse">
-        <div className="pop-browse__container">
-          <ModalTask />
+        <div className="pop-browse" id="popBrowse">
+          <div className="pop-browse__container">
+            <ModalTask />
+          </div>
         </div>
-      </div>
 
-      <Header addTask={addTask} />
-      <MainElement isLoaded={isLoaded} tasks={tasks} />
-    </div>
+        <Header addTask={addTask} />
+        <MainElement isLoaded={isLoaded} tasks={tasks} />
+      </div>
+    </>
   );
 }
 

@@ -1,17 +1,18 @@
 import Task from "../Task/Task";
+import { Cards, ColumnTitle, MainColumn } from "./Column.styled";
 
 function Column({ tasks, title }) {
   return (
-    <div className="main__column column">
-      <div className="column__title">
+    <MainColumn>
+      <ColumnTitle>
         <p>{title}</p>
-      </div>
-      <div className="cards">
+      </ColumnTitle>
+      <Cards>
         {tasks.map((task) => (
           <Task key={task.id} task={task} />
         ))}
-      </div>
-    </div>
-  )
+      </Cards>
+    </MainColumn>
+  );
 }
 export default Column;

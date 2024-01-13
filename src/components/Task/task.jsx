@@ -1,24 +1,26 @@
 import ThemeLabel from "./ThemeLabel";
+import {CardDate, CardContent, CardButton, CardGroup, CardItem, CardWrapper, CardTitle } from "./Task.styled";
 
-function Task({task}) {
+function Task({ task }) {
+
   return (
-    <div className="cards__item">
-      <div className="cards__card card">
-        <div className="card__group">
-          <ThemeLabel theme={task.theme}/>
+    <CardItem>
+      <CardWrapper>
+        <CardGroup>
+          <ThemeLabel theme={task.theme} />
           <a href="#popBrowse" target="_self">
-            <div className="card__btn">
+            <CardButton>
               <div></div>
               <div></div>
               <div></div>
-            </div>
+            </CardButton>
           </a>
-        </div>
-        <div className="card__content">
+        </CardGroup>
+        <CardContent>
           <a href="" target="_blank">
-            <h3 className="card__title">{task.title}</h3>
+            <CardTitle>{task.title}</CardTitle>
           </a>
-          <div className="card__date">
+          <CardDate>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="13"
@@ -48,10 +50,10 @@ function Task({task}) {
               </defs>
             </svg>
             <p>{task.date}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
+          </CardDate>
+        </CardContent>
+      </CardWrapper>
+    </CardItem>
+  );
 }
 export default Task;
