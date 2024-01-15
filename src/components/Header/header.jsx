@@ -1,5 +1,7 @@
+import { Container } from "../Common/Common.styled";
 import User from "../User/User";
 import { useState } from 'react';
+import { HeaderSection, HeaderBlock, HeaderNav } from "./Header.styled";
 
 function Header({addTask}) {
   const [isOpened,setIsOpened] = useState(false); 
@@ -7,9 +9,9 @@ function Header({addTask}) {
     setIsOpened((isOpened) => !isOpened)
   }
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header__block">
+    <HeaderSection>
+      <Container>
+        <HeaderBlock>
           <div className="header__logo _show _light">
             <a href="" target="_self">
               <img src="images/logo.png" alt="logo" />
@@ -20,7 +22,7 @@ function Header({addTask}) {
               <img src="images/logo_dark.png" alt="logo" />
             </a>
           </div>
-          <nav className="header__nav">
+          <HeaderNav>
             <button className="header__btn-main-new _hover01" id="btnMainNew" onClick={addTask}>
               Создать новую задачу
             </button>
@@ -28,10 +30,10 @@ function Header({addTask}) {
               Ivan Ivanov
             </a>
             {isOpened && <User />}
-          </nav>
-        </div>
-      </div>
-    </header>
+          </HeaderNav>
+        </HeaderBlock>
+        </Container>
+    </HeaderSection>
   );
 }
 export default Header;

@@ -1,19 +1,20 @@
+import { UserPopUp, UserName, UserMail, UserTheme, UserButton } from "./User.styled";
+
+
 function User() {
   return (
-    <div 
-    className="header__pop-user-set pop-user-set"
-    >
+    <UserPopUp>
       {/* <a href="">x</a> */}
-      <p className="pop-user-set__name">Ivan Ivanov</p>
-      <p className="pop-user-set__mail">ivan.ivanov@gmail.com</p>
-      <div className="pop-user-set__theme">
+      <UserName>Ivan Ivanov</UserName>
+      <UserMail>ivan.ivanov@gmail.com</UserMail>
+      <UserTheme>
         <p>Темная тема</p>
         <input type="checkbox" className="checkbox" name="checkbox" />
-      </div>
-      <button type="button" className="_hover03">
+      </UserTheme>
+      <UserButton>
         <a href="#popExit">Выйти</a>
-      </button>
-    </div>
+      </UserButton>
+    </UserPopUp>
   );
 }
 export default User;
