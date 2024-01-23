@@ -1,62 +1,38 @@
+import { Routes, Route } from "react-router-dom";
+
 import "./App.css";
-import Exit from "./components/Exit/Exit";
-import NewTask from "./components/NewTask/NewTask";
-import ModalTask from "./components/ModalTask/ModalTask";
-import Header from "./components/Header/Header";
-import MainElement from "./components/MainElement/MainElement";
-import { demoTasks } from "./date";
-import { useEffect, useState } from "react";
+
 import { GlobalStyled } from "./Global.styled";
+import { appRoutes } from "./lib/appRoutes";
+
+import MainPage from "./pages/MainPage/MainPage";
+import TaskPage from "./pages/TaskPage/TaskPage";
+import ErrorPage from "./pages/ErrorPage/ErrorPage";
+import RegisterPage from "./pages/RegisterPage/RegisterPage";
+import LoginPage from "./pages/LoginPage/LoginPage";
+import ExitPage from "./pages/ExitPage/ExitPage";
+
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
-  const [tasks, setTasks] = useState(demoTasks);
-
-  const [isLoaded, setIsLoaded] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoaded(false);
-    }, 2000);
-  }, []);
-
-  function addTask() {
-    setTasks((prevTasks) => [
-      ...prevTasks,
-      {
-        id: prevTasks.length + 1,
-        theme: "Research",
-        title: "Доработай",
-        date: "09.01.23",
-        status: "Готово",
-      },
-    ]);
-  }
+  let user = true;
 
   return (
     <>
       <GlobalStyled />
-      <div className="wrapper">
-        <div className="pop-exit" id="popExit">
-          <div className="pop-exit__container">
-            <Exit />
-          </div>
-        </div>
 
-        <div className="pop-new-card" id="popNewCard">
-          <div className="pop-new-card__container">
-            <NewTask />
-          </div>
-        </div>
+      <Routes>
+        <Route element={<PrivateRoute user={user} />}>
+          <Route path={appRoutes.MAIN} element={<MainPage />}>
+            <Route path={`${appRoutes.TASK}/:taskId`} element={<TaskPage />} />
+            <Route path={appRoutes.EXIT} element={<ExitPage />} />
+          </Route>
+        </Route>
 
-        <div className="pop-browse" id="popBrowse">
-          <div className="pop-browse__container">
-            <ModalTask />
-          </div>
-        </div>
-
-        <Header addTask={addTask} />
-        <MainElement isLoaded={isLoaded} tasks={tasks} />
-      </div>
+        <Route path={appRoutes.NOT_FOUND} element={<ErrorPage />} />
+        <Route path={appRoutes.REGISTER} element={<RegisterPage />} />
+        <Route path={appRoutes.LOGIN} element={<LoginPage />} />
+      </Routes>
     </>
   );
 }

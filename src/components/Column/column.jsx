@@ -9,7 +9,7 @@ function Column({ tasks, title }) {
       </ColumnTitle>
       <Cards>
         {tasks.map((task) => (
-          <Task key={task.id} task={task} />
+          <Task id={task.id} key={task.id} task={task} />
         ))}
       </Cards>
     </MainColumn>

@@ -1,3 +1,4 @@
+
 import { CardTheme, ThemeLabelText } from "./Task.styled";
 
 // const colors = {
@@ -7,6 +8,7 @@ import { CardTheme, ThemeLabelText } from "./Task.styled";
 // };
 
 function ThemeLabel({ theme }) {
+
   let color;
   switch (theme) {
     case "Web Design":
