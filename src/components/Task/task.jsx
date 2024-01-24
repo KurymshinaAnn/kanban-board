@@ -1,8 +1,18 @@
+import { Link } from "react-router-dom";
+
 import ThemeLabel from "./ThemeLabel";
-import {CardDate, CardContent, CardButton, CardGroup, CardItem, CardWrapper, CardTitle } from "./Task.styled";
+import {
+  CardDate,
+  CardContent,
+  CardButton,
+  CardGroup,
+  CardItem,
+  CardWrapper,
+  CardTitle,
+} from "./Task.styled";
+import { appRoutes } from "../../lib/appRoutes";
 
-function Task({ task }) {
-
+function Task({ task, id }) {
   return (
     <CardItem>
       <CardWrapper>
@@ -17,9 +27,9 @@ function Task({ task }) {
           </a>
         </CardGroup>
         <CardContent>
-          <a href="" target="_blank">
+          <Link to={`${appRoutes.TASK}/${id}`}>
             <CardTitle>{task.title}</CardTitle>
-          </a>
+          </Link>
           <CardDate>
             <svg
               xmlns="http://www.w3.org/2000/svg"
