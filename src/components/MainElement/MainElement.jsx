@@ -10,13 +10,14 @@ const statusList = [
   "Готово",
 ];
 
-function MainElement({ tasks, isLoaded }) {
+function MainElement({ tasks, isLoaded, isError }) {
   return (
     <Main>
       <Container>
         <MainBlock>
           <MainContent>
-            {isLoaded
+            {isError ? "Ошибка загрузки" 
+            : isLoaded
               ? "Данные загружаются"
               : statusList.map((item) => (
                   <Column
@@ -24,8 +25,9 @@ function MainElement({ tasks, isLoaded }) {
                     tasks={tasks.filter((task) => task.status === item)}
                     title={item}
                   />
-                ))}
-          </MainContent>
+                ))
+            }
+            </MainContent>
         </MainBlock>
       </Container>
     </Main>

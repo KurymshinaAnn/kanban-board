@@ -1,7 +1,7 @@
-import { Link } from "react-router-dom";
-import "../../../css/signin.css";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { appRoutes } from "../../lib/appRoutes";
-
+import { login } from "../../api/api";
 import {
   Wrapper,
   ContainerSignin,
@@ -13,43 +13,86 @@ import {
   ModalTitle,
 } from "./LoginPage.styled";
 
-function LoginPage() {
+import { GlobalStyled } from "../../Global.styled";
+import "../../../css/signin.css";
+
+function LoginPage({ setUserData }) {
+  let navigate = useNavigate();
+
+  const loginForm = {
+    login: "",
+    password: "",
+  };
+
+  const [loginData, setLoginData] = useState(loginForm);
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    await login(loginData)
+      .then((data) => {
+        console.log(data);
+        setUserData(data.user);
+      })
+      .then(() => {
+        navigate(appRoutes.MAIN);
+      })
+      .catch((error) => {
+        console.warn(error);
+      });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+
+    setLoginData({
+      ...loginData,
+      [name]: value,
+    });
+  };
+
   return (
-    <Wrapper>
-      <ContainerSignin>
-        <Modal>
-          <ModalBlock>
-            <ModalTitle>
-              <h2>Вход</h2>
-            </ModalTitle>
-            <ModalFormLogin>
-              <input
-                className="modal__input"
-                type="text"
-                name="login"
-                id="formlogin"
-                placeholder="Эл. почта"
-              />
-              <input
-                className="modal__input"
-                type="password"
-                name="password"
-                id="formpassword"
-                placeholder="Пароль"
-              />
-              <ModalButtonEnter>
-                <a href="../main.html">Войти</a>{" "}
-                {/* делала через <LinK> но почему-то не получилось, ссылка не работала */}
-              </ModalButtonEnter>
-              <ModalFormGroup>
-                <p>Нужно зарегистрироваться?</p>
-                <Link to={appRoutes.REGISTER}>Регистрируйтесь здесь</Link>
-              </ModalFormGroup>
-            </ModalFormLogin>
-          </ModalBlock>
-        </Modal>
-      </ContainerSignin>
-    </Wrapper>
+    <>
+      <GlobalStyled />
+
+      <Wrapper>
+        <ContainerSignin>
+          <Modal>
+            <ModalBlock>
+              <ModalTitle>
+                <h2>Вход</h2>
+              </ModalTitle>
+              <ModalFormLogin>
+                <input
+                  className="modal__input"
+                  type="text"
+                  id="formlogin"
+                  value={loginData.login}
+                  onChange={handleInputChange}
+                  name="login"
+                  placeholder="Эл. почта"
+                />
+                <input
+                  className="modal__input"
+                  type="password"
+                  id="formpassword"
+                  value={loginData.password}
+                  onChange={handleInputChange}
+                  name="password"
+                  placeholder="Пароль"
+                />
+
+                <ModalButtonEnter onClick={handleLogin}>Войти</ModalButtonEnter>
+
+                <ModalFormGroup>
+                  <p>Нужно зарегистрироваться?</p>
+                  <Link to={appRoutes.REGISTER}>Регистрируйтесь здесь</Link>
+                </ModalFormGroup>
+              </ModalFormLogin>
+            </ModalBlock>
+          </Modal>
+        </ContainerSignin>
+      </Wrapper>
+    </>
   );
 }
 

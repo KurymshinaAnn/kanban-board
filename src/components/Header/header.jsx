@@ -3,7 +3,7 @@ import User from "../User/User";
 import { useState } from "react";
 import { HeaderSection, HeaderBlock, HeaderNav } from "./Header.styled";
 
-function Header({ addTask }) {
+function Header({ addTask, userData }) {
   const [isOpened, setIsOpened] = useState(false);
   function togglePopUp() {
     setIsOpened((isOpened) => !isOpened);
@@ -31,9 +31,9 @@ function Header({ addTask }) {
               Создать новую задачу
             </button>
             <a href="#" className="header__user _hover02" onClick={togglePopUp}>
-              Ivan Ivanov
+              {userData.name}
             </a>
-            {isOpened && <User />}
+            {isOpened && <User userData={userData}/>}
           </HeaderNav>
         </HeaderBlock>
       </Container>

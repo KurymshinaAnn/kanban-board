@@ -1,9 +1,19 @@
+import { useNavigate } from "react-router";
 import ExitBlock from "../../components/ExitBlock/ExitBlock";
+import { appRoutes } from "../../lib/appRoutes";
 
-function ExitPage() {
+function ExitPage({ setUserData }) {
+  const navigate = useNavigate();
+
+  const onExit = (ev) => {
+    ev.preventDefault();
+    setUserData(null);
+    navigate(appRoutes.LOGIN);
+  };
+
   return (
     <>
-      <ExitBlock />
+      <ExitBlock onExit={onExit} />
     </>
   );
 }
