@@ -7,10 +7,10 @@ import { CardTheme, ThemeLabelText } from "./Task.styled";
 //   Copywriting: "_purple",
 // };
 
-function ThemeLabel({ theme }) {
+function ThemeLabel({ topic }) {
 
   let color;
-  switch (theme) {
+  switch (topic) {
     case "Web Design":
       color = "_orange";
       break;
@@ -31,7 +31,7 @@ function ThemeLabel({ theme }) {
 
   return (
     <CardTheme $themeColor={color} >
-      <ThemeLabelText>{theme}</ThemeLabelText>
+      <ThemeLabelText>{topic}</ThemeLabelText>
     </CardTheme>
   );
 }

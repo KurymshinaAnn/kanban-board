@@ -17,7 +17,7 @@ function Task({ task, id }) {
     <CardItem>
       <CardWrapper>
         <CardGroup>
-          <ThemeLabel theme={task.theme} />
+          <ThemeLabel topic={task.topic} />
           <a href="#popBrowse" target="_self">
             <CardButton>
               <div></div>
