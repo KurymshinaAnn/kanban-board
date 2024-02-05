@@ -1,12 +1,12 @@
 import Exit from "../Exit/Exit";
 import { ExitPop, ExitContainerPop } from "./ExitBlock.styled";
 
-function ExitBlock() {
+function ExitBlock({ onExit }) {
   return (
     <ExitPop>
       <ExitContainerPop>
-        <Exit />
-        </ExitContainerPop>
+        <Exit onExit={onExit}/>
+      </ExitContainerPop>
     </ExitPop>
   );
 }

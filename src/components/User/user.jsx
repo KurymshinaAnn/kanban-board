@@ -3,12 +3,12 @@ import { appRoutes } from "../../lib/appRoutes";
 import { UserPopUp, UserName, UserMail, UserTheme, UserButton } from "./User.styled";
 
 
-function User() {
+function User({ userData }) {
   return (
     <UserPopUp>
       {/* <a href="">x</a> */}
-      <UserName>Ivan Ivanov</UserName>
-      <UserMail>ivan.ivanov@gmail.com</UserMail>
+      <UserName>{userData.name}</UserName>
+      <UserMail>{userData.login}</UserMail>
       <UserTheme>
         <p>Темная тема</p>
         <input type="checkbox" className="checkbox" name="checkbox" />

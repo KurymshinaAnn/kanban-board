@@ -1,24 +1,31 @@
-//import Browse from "../Browse/Browse";
-//import ExitBlock from "../ExitBlock/ExitBlock";
-import Header from "../Header/Header";
-import MainElement from "../MainElement/MainElement";
-//import NewTaskBlock from "../NewTaskBlock/NewTaskBlock";
-
 import { WrapperBlock } from "./Wrapper.styled";
-
 import { demoTasks } from "../../date";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
+import { getTasks } from "../../api/api";
 
-function Wrapper() {
+import Header from "../Header/Header";
+import MainElement from "../MainElement/MainElement";
+
+function Wrapper({ userData }) {
   const [tasks, setTasks] = useState(demoTasks);
 
   const [isLoaded, setIsLoaded] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      setIsLoaded(false);
-    }, 2000);
+    getTasks({ token: userData.token })
+      .then((data) => {
+        console.log(data.tasks);
+        setTasks(data.tasks);
+      })
+      .then(() => {
+        setIsLoaded(false);
+      })
+      .catch((error) => {
+        console.log(error);
+        setIsError(true);
+      });
   }, []);
 
   function addTask() {
@@ -36,12 +43,9 @@ function Wrapper() {
 
   return (
     <WrapperBlock>
-      {/* <ExitBlock />
-      <NewTaskBlock />
-      <Browse /> */}
       <Outlet />
-      <Header addTask={addTask} />
-      <MainElement isLoaded={isLoaded} tasks={tasks} />
+      <Header addTask={addTask} userData={userData}/>
+      <MainElement isLoaded={isLoaded} tasks={tasks} isError={isError}/>
     </WrapperBlock>
   );
 }

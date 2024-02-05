@@ -1,23 +1,26 @@
 import { Link } from "react-router-dom";
 import { appRoutes } from "../../lib/appRoutes";
+import {
+  ExitBlock,
+  ExitButtonNo,
+  ExitButtonYes,
+  ExitFormGroup,
+  ExitTitle,
+} from "./Exit.styled";
 
-function Exit() {
+function Exit({ onExit }) {
   return (
-    <div className="pop-exit__block">
-      <div className="pop-exit__ttl">
-        <h2>Выйти из аккаунта?</h2>
-      </div>
-      <form className="pop-exit__form" id="formExit" action="#">
-        <div className="pop-exit__form-group">
-          <button className="pop-exit__exit-yes _hover01" id="exitYes">
-          <Link to={appRoutes.LOGIN}>Да, выйти</Link>{" "}
-          </button>
-          <button className="pop-exit__exit-no _hover03" id="exitNo">
-          <Link to={appRoutes.MAIN}>Нет, остаться</Link>{" "}
-          </button>
-        </div>
+    <ExitBlock>
+      <ExitTitle>Выйти из аккаунта?</ExitTitle>
+      <form>
+        <ExitFormGroup>
+          <ExitButtonYes onClick={onExit}>Да, выйти</ExitButtonYes>
+          <ExitButtonNo>
+            <Link to={appRoutes.MAIN}>Нет, остаться</Link>
+          </ExitButtonNo>
+        </ExitFormGroup>
       </form>
-    </div>
+    </ExitBlock>
   );
 }
 export default Exit;

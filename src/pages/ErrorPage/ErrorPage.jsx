@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { appRoutes } from "../../lib/appRoutes";
 
+import { GlobalStyled } from "../../Global.styled";
+
 import {
   Wrapper,
   ContainerSignup,
@@ -13,22 +15,26 @@ import {
 
 function ErrorPage() {
   return (
-    <Wrapper>
-      <ContainerSignup>
-        <Modal>
-          <ModalBlock>
-            <ModalTitle>
-              <h2>ОЙ 404 ОЙ</h2>
-            </ModalTitle>
-            <ModalFormLogin>
-              <ModalButtonEnter>
-                <Link to={appRoutes.MAIN}>Домой</Link>
-              </ModalButtonEnter>
-            </ModalFormLogin>
-          </ModalBlock>
-        </Modal>
-      </ContainerSignup>
-    </Wrapper>
+    <>
+      <GlobalStyled />
+
+      <Wrapper>
+        <ContainerSignup>
+          <Modal>
+            <ModalBlock>
+              <ModalTitle>
+                <h2>ОЙ 404 ОЙ</h2>
+              </ModalTitle>
+              <ModalFormLogin>
+                <ModalButtonEnter>
+                  <Link to={appRoutes.MAIN}>Домой</Link>
+                </ModalButtonEnter>
+              </ModalFormLogin>
+            </ModalBlock>
+          </Modal>
+        </ContainerSignup>
+      </Wrapper>
+    </>
   );
 }
 

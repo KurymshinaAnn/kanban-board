@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-
-import "./App.css";
-
 import { GlobalStyled } from "./Global.styled";
 import { appRoutes } from "./lib/appRoutes";
+import { useState } from "react";
+
+import "./App.css";
 
 import MainPage from "./pages/MainPage/MainPage";
 import TaskPage from "./pages/TaskPage/TaskPage";
@@ -15,23 +15,24 @@ import ExitPage from "./pages/ExitPage/ExitPage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 
 function App() {
-  let user = true;
+
+  const [userData, setUserData] = useState(null);
 
   return (
     <>
-      <GlobalStyled />
+       <GlobalStyled />
 
       <Routes>
-        <Route element={<PrivateRoute user={user} />}>
-          <Route path={appRoutes.MAIN} element={<MainPage />}>
+        <Route element={<PrivateRoute user={userData} />}>
+          <Route path={appRoutes.MAIN} element={<MainPage userData={userData}/>}>
             <Route path={`${appRoutes.TASK}/:taskId`} element={<TaskPage />} />
-            <Route path={appRoutes.EXIT} element={<ExitPage />} />
+            <Route path={appRoutes.EXIT} element={<ExitPage setUserData={setUserData}/>} />
           </Route>
         </Route>
 
         <Route path={appRoutes.NOT_FOUND} element={<ErrorPage />} />
-        <Route path={appRoutes.REGISTER} element={<RegisterPage />} />
-        <Route path={appRoutes.LOGIN} element={<LoginPage />} />
+        <Route path={appRoutes.REGISTER} element={<RegisterPage setUserData={setUserData}/>} />
+        <Route path={appRoutes.LOGIN} element={<LoginPage setUserData={setUserData}/>} />
       </Routes>
     </>
   );
