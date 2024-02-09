@@ -1,14 +1,12 @@
-import { useNavigate } from "react-router";
 import ExitBlock from "../../components/ExitBlock/ExitBlock";
-import { appRoutes } from "../../lib/appRoutes";
+import { useUser } from "../../hooks/useUser";
 
-function ExitPage({ setUserData }) {
-  const navigate = useNavigate();
+function ExitPage() {
+  const {logoutUser} = useUser();
 
   const onExit = (ev) => {
     ev.preventDefault();
-    setUserData(null);
-    navigate(appRoutes.LOGIN);
+    logoutUser();
   };
 
   return (

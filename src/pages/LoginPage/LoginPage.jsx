@@ -1,7 +1,10 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
+import { useUser } from "../../hooks/useUser";
+
 import { appRoutes } from "../../lib/appRoutes";
 import { login } from "../../api/api";
+
 import {
   Wrapper,
   ContainerSignin,
@@ -16,8 +19,8 @@ import {
 import { GlobalStyled } from "../../Global.styled";
 import "../../../css/signin.css";
 
-function LoginPage({ setUserData }) {
-  let navigate = useNavigate();
+function LoginPage() {
+  const {loginUser} = useUser();
 
   const loginForm = {
     login: "",
@@ -31,10 +34,7 @@ function LoginPage({ setUserData }) {
     await login(loginData)
       .then((data) => {
         console.log(data);
-        setUserData(data.user);
-      })
-      .then(() => {
-        navigate(appRoutes.MAIN);
+        loginUser(data.user)
       })
       .catch((error) => {
         console.warn(error);

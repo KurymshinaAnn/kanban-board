@@ -1,12 +1,13 @@
 import NewTask from "../NewTask/NewTask";
+import { NewCard, NewCardContainer } from "./NewTaskBlock.styled";
 
 function NewTaskBlock() {
   return (
-    <div className="pop-new-card" id="popNewCard">
-      <div className="pop-new-card__container">
+    <NewCard>
+      <NewCardContainer>
         <NewTask />
-      </div>
-    </div>
+      </NewCardContainer>
+    </NewCard>
   );
 }
 

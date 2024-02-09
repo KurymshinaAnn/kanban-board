@@ -1,7 +1,10 @@
 import { Navigate, Outlet } from "react-router";
 import { appRoutes } from "../../lib/appRoutes";
+import { useUser } from "../../hooks/useUser";
 
-function PrivateRoute({ user }) {
+function PrivateRoute() {
+  const {user} = useUser();
+  
   if (!user) {
     return <Navigate to={appRoutes.LOGIN} />;
   }
