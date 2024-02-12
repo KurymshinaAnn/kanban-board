@@ -1,20 +1,22 @@
 import { WrapperBlock } from "./Wrapper.styled";
-import { demoTasks } from "../../date";
 import { useEffect, useState } from "react";
 import { Outlet } from "react-router";
 import { getTasks } from "../../api/api";
+import { useUser } from "../../hooks/useUser";
+import { useTasks } from "../../hooks/useTasks"
 
 import Header from "../Header/Header";
 import MainElement from "../MainElement/MainElement";
 
-function Wrapper({ userData }) {
-  const [tasks, setTasks] = useState(demoTasks);
+function Wrapper() {
+  const {user} = useUser();
+  const {tasks, setTasks} = useTasks(); 
 
   const [isLoaded, setIsLoaded] = useState(true);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    getTasks({ token: userData.token })
+    getTasks({ token: user.token })
       .then((data) => {
         console.log(data.tasks);
         setTasks(data.tasks);
@@ -28,23 +30,11 @@ function Wrapper({ userData }) {
       });
   }, []);
 
-  function addTask() {
-    setTasks((prevTasks) => [
-      ...prevTasks,
-      {
-        id: prevTasks.length + 1,
-        theme: "Research",
-        title: "Доработай",
-        date: "09.01.23",
-        status: "Готово",
-      },
-    ]);
-  }
 
   return (
     <WrapperBlock>
       <Outlet />
-      <Header addTask={addTask} userData={userData}/>
+      <Header />
       <MainElement isLoaded={isLoaded} tasks={tasks} isError={isError}/>
     </WrapperBlock>
   );

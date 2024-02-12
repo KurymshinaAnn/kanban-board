@@ -1,9 +1,9 @@
 import Wrapper from "../../components/Wrapper/Wrapper";
 
-function MainPage({ userData }) {
-  return (
+function MainPage() {
+    return (
     <>
-      <Wrapper userData={userData}/>
+      <Wrapper/>
     </>
   );
 }

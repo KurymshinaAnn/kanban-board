@@ -1,7 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 import { appRoutes } from "../../lib/appRoutes";
 import { registration } from "../../api/api";
+import { useUser } from "../../hooks/useUser";
+
 import {
   Wrapper,
   ContainerSignup,
@@ -16,8 +18,8 @@ import {
 import { GlobalStyled } from "../../Global.styled";
 import "../../../css/signup.css";
 
-function RegisterPage({ setUserData }) {
-  let navigate = useNavigate();
+function RegisterPage() {
+  const {loginUser} = useUser();
 
   const registerForm = {
     name: "",
@@ -32,10 +34,7 @@ function RegisterPage({ setUserData }) {
     await registration(registerData)
       .then((data) => {
         console.log(data);
-        setUserData(data.user);
-      })
-      .then(() => {
-        navigate(appRoutes.MAIN);
+        loginUser(data.user);
       })
       .catch((error) => {
         console.warn(error);

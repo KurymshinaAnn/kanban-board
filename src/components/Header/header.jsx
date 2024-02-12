@@ -1,10 +1,24 @@
-import { Container } from "../Common/Common.styled";
-import User from "../User/User";
 import { useState } from "react";
-import { HeaderSection, HeaderBlock, HeaderNav } from "./Header.styled";
+import { Link } from "react-router-dom";
 
-function Header({ addTask, userData }) {
+import User from "../User/User";
+
+import { appRoutes } from "../../lib/appRoutes";
+
+import { Container } from "../Common/Common.styled";
+import {
+  HeaderSection,
+  HeaderBlock,
+  HeaderNav,
+  HeaderButtonNewTask,
+} from "./Header.styled";
+import { useUser } from "../../hooks/useUser";
+
+function Header() {
+  const { user } = useUser();
+
   const [isOpened, setIsOpened] = useState(false);
+
   function togglePopUp() {
     setIsOpened((isOpened) => !isOpened);
   }
@@ -23,17 +37,14 @@ function Header({ addTask, userData }) {
             </a>
           </div>
           <HeaderNav>
-            <button
-              className="header__btn-main-new _hover01"
-              id="btnMainNew"
-              onClick={addTask}
-            >
-              Создать новую задачу
-            </button>
+            <HeaderButtonNewTask>
+              <Link to={appRoutes.NEW_TASK}>Создать новую задачу</Link>
+            </HeaderButtonNewTask>
+
             <a href="#" className="header__user _hover02" onClick={togglePopUp}>
-              {userData.name}
+              {user.name}
             </a>
-            {isOpened && <User userData={userData}/>}
+            {isOpened && <User />}
           </HeaderNav>
         </HeaderBlock>
       </Container>
