@@ -1,4 +1,5 @@
 import Column from "../Column/Column";
+import ColumnSkeleton from "../Column/ColumnSkeleton";
 import { Container } from "../Common/Common.styled";
 import { Main, MainBlock, MainContent } from "./MainElement.styled";
 
@@ -16,18 +17,20 @@ function MainElement({ tasks, isLoaded, isError }) {
       <Container>
         <MainBlock>
           <MainContent>
-            {isError ? "Ошибка загрузки" 
-            : isLoaded
-              ? "Данные загружаются"
-              : statusList.map((item) => (
-                  <Column
-                    key={item}
-                    tasks={tasks.filter((task) => task.status === item)}
-                    title={item}
-                  />
-                ))
-            }
-            </MainContent>
+            {isError
+              ? "Ошибка загрузки"
+              : statusList.map((item) =>
+                  isLoaded ? (
+                    <ColumnSkeleton key={item} count={3} title={item} />
+                  ) : (
+                    <Column
+                      key={item}
+                      tasks={tasks.filter((task) => task.status === item)}
+                      title={item}
+                    />
+                  )
+                )}
+          </MainContent>
         </MainBlock>
       </Container>
     </Main>

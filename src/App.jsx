@@ -8,6 +8,7 @@ import "./App.css";
 import MainPage from "./pages/MainPage/MainPage";
 import TaskPage from "./pages/TaskPage/TaskPage";
 import NewTaskPage from "./pages/NewTaskPage/NewTaskPage";
+import EditPage from "./pages/EditPage/EditPage";
 import ErrorPage from "./pages/ErrorPage/ErrorPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
@@ -25,6 +26,7 @@ function App() {
           <Route path={appRoutes.MAIN} element={<MainPage />}>
             <Route path={`${appRoutes.TASK}/:taskId`} element={<TaskPage />} />
             <Route path={appRoutes.NEW_TASK} element={<NewTaskPage />} />
+            <Route path={`${appRoutes.EDIT_TASK}/:taskId`} element={<EditPage />}/>
             <Route path={appRoutes.EXIT} element={<ExitPage />} />
           </Route>
         </Route>

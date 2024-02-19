@@ -1,9 +1,17 @@
+import { useDroppable } from "@dnd-kit/core";
 import Task from "../Task/Task";
 import { Cards, ColumnTitle, MainColumn } from "./Column.styled";
 
 function Column({ tasks, title }) {
+  const { isOver, setNodeRef } = useDroppable({
+    id: `droppable-${title}`,
+    data: {
+      title: title,
+    },
+  });
+
   return (
-    <MainColumn>
+    <MainColumn ref={setNodeRef} $over={isOver}>
       <ColumnTitle>
         <p>{title}</p>
       </ColumnTitle>

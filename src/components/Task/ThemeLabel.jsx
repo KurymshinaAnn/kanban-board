@@ -1,4 +1,3 @@
-
 import { CardTheme, ThemeLabelText } from "./Task.styled";
 
 // const colors = {
@@ -7,8 +6,7 @@ import { CardTheme, ThemeLabelText } from "./Task.styled";
 //   Copywriting: "_purple",
 // };
 
-function ThemeLabel({ topic }) {
-
+function ThemeLabel({ topic, large = false }) {
   let color;
   switch (topic) {
     case "Web Design":
@@ -28,12 +26,10 @@ function ThemeLabel({ topic }) {
       break;
   }
 
-
   return (
-    <CardTheme $themeColor={color} >
-      <ThemeLabelText>{topic}</ThemeLabelText>
+    <CardTheme $large={large} $themeColor={color}>
+      <ThemeLabelText $large={large}>{topic}</ThemeLabelText>
     </CardTheme>
   );
 }
 export default ThemeLabel;
- 

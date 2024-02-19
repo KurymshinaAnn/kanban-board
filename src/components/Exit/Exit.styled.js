@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { breakpoints } from "../../lib/breakpoints";
 
 export const ExitBlock = styled.div`
   display: block;
@@ -10,6 +11,10 @@ export const ExitBlock = styled.div`
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+
+  @media (max-width: ${breakpoints.sm}px) {
+    padding: 50px 20px;
+  }
 `;
 
 export const ExitTitle = styled.div`
@@ -28,6 +33,10 @@ export const ExitFormGroup = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media (max-width: ${breakpoints.sm}px) {
+    display: block;
+  }
 `;
 
 export const ExitButtonYes = styled.button`
@@ -56,8 +65,15 @@ export const ExitButtonYes = styled.button`
     justify-content: center;
   }
 
-  _hover01:hover {
+  &:hover {
     background-color: #33399b;
+  }
+
+  @media (max-width: ${breakpoints.sm}px) {
+    width: 100%;
+    height: 40px;
+    margin-right: 0;
+    margin-bottom: 10px;
   }
 `;
 
@@ -75,7 +91,7 @@ export const ExitButtonNo = styled.button`
   line-height: 21px;
   font-weight: 500;
   letter-spacing: -0.14px;
-  color: #ffffff;
+  color: #565eef;
 
   a {
     width: 100%;
@@ -86,8 +102,16 @@ export const ExitButtonNo = styled.button`
     justify-content: center;
   }
 
-  _hover03:hover {
+  &:hover {
     background-color: #33399b;
-    color: #ffffff;
+
+    a {
+      color: #ffffff;
+    }
+  }
+
+  @media (max-width: ${breakpoints.sm}px) {
+    width: 100%;
+    height: 40px;
   }
 `;

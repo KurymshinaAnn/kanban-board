@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
 
+import { format, parseISO } from "date-fns";
+
+import { appRoutes } from "../../lib/appRoutes";
 import ThemeLabel from "./ThemeLabel";
 import {
   CardDate,
@@ -10,21 +13,33 @@ import {
   CardWrapper,
   CardTitle,
 } from "./Task.styled";
-import { appRoutes } from "../../lib/appRoutes";
+import { useDraggable } from "@dnd-kit/core";
 
 function Task({ task, id }) {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: `draggable-${id}`,
+    data: {
+      id: id,
+    },
+  });
+
   return (
-    <CardItem>
+    <CardItem
+      $transform={transform}
+      ref={setNodeRef}
+      {...listeners}
+      {...attributes}
+    >
       <CardWrapper>
         <CardGroup>
           <ThemeLabel topic={task.topic} />
-          <a href="#popBrowse" target="_self">
+          <Link to={`${appRoutes.TASK}/${id}`}>
             <CardButton>
               <div></div>
               <div></div>
               <div></div>
             </CardButton>
-          </a>
+          </Link>
         </CardGroup>
         <CardContent>
           <Link to={`${appRoutes.TASK}/${id}`}>
@@ -59,7 +74,7 @@ function Task({ task, id }) {
                 </clipPath>
               </defs>
             </svg>
-            <p>{task.date}</p>
+            <p>{format(parseISO(task.date), "dd.MM.yy.")}</p>
           </CardDate>
         </CardContent>
       </CardWrapper>

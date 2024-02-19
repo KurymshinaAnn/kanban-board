@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { breakpoints } from "../../lib/breakpoints";
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -24,6 +25,10 @@ export const Modal = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  @media (max-width: ${breakpoints.sm}px) {
+    background-color: #ffffff;
+  }
 `;
 
 export const ModalBlock = styled.div`
@@ -36,6 +41,15 @@ export const ModalBlock = styled.div`
   border-radius: 10px;
   border: 0.7px solid #d4dbe5;
   box-shadow: 0px 4px 67px -12px rgba(0, 0, 0, 0.13);
+
+  @media (max-width: ${breakpoints.sm}px) {
+    max-width: 368px;
+    width: 100%;
+    padding: 0 16px;
+    border-radius: none;
+    border: none;
+    box-shadow: none;
+  }
 `;
 
 export const ModalTitle = styled.div`
@@ -59,7 +73,40 @@ export const ModalFormLogin = styled.form`
   }
 `;
 
-export const ModalInput = styled.input``;
+export const ModalInput = styled.input`
+  width: 100%;
+  min-width: 100%;
+  border-radius: 8px;
+  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  outline: none;
+  padding: 10px 8px;
+
+  &::-moz-placeholder {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: -0.28px;
+    color: #94a6be;
+  }
+  &::placeholder {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: -0.28px;
+    color: #94a6be;
+  }
+`;
+
+export const ModalMessageError = styled.p`
+  color: #f84d4d;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 150%;
+  letter-spacing: -0.14px;
+  text-align: center;
+`;
 
 export const ModalButtonSignupEnter = styled.button`
   width: 100%;
@@ -88,8 +135,12 @@ export const ModalButtonSignupEnter = styled.button`
     justify-content: center;
   }
 
-  _hover01:hover {
+  &:hover {
     background-color: #33399b;
+  }
+
+  @media (max-width: ${breakpoints.sm}px) {
+    height: 40px;
   }
 `;
 

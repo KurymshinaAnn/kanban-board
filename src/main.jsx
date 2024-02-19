@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <UserProvider>
         <TasksProvider>
-        <App />
+          <App />
         </TasksProvider>
       </UserProvider>
     </BrowserRouter>
