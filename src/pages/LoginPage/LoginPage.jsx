@@ -14,13 +14,15 @@ import {
   ModalFormGroup,
   ModalFormLogin,
   ModalTitle,
+  ModalMessageError,
+  ModalInput,
 } from "./LoginPage.styled";
 
 import { GlobalStyled } from "../../Global.styled";
-import "../../../css/signin.css";
 
 function LoginPage() {
-  const {loginUser} = useUser();
+  const { loginUser } = useUser();
+  const [isError, setIsError] = useState(false);
 
   const loginForm = {
     login: "",
@@ -30,13 +32,15 @@ function LoginPage() {
   const [loginData, setLoginData] = useState(loginForm);
 
   const handleLogin = async (e) => {
+    setIsError(false);
     e.preventDefault();
     await login(loginData)
       .then((data) => {
         console.log(data);
-        loginUser(data.user)
+        loginUser(data.user);
       })
       .catch((error) => {
+        setIsError(true);
         console.warn(error);
       });
   };
@@ -53,7 +57,6 @@ function LoginPage() {
   return (
     <>
       <GlobalStyled />
-
       <Wrapper>
         <ContainerSignin>
           <Modal>
@@ -61,28 +64,28 @@ function LoginPage() {
               <ModalTitle>
                 <h2>Вход</h2>
               </ModalTitle>
-              <ModalFormLogin>
-                <input
-                  className="modal__input"
+              <ModalFormLogin onSubmit={(e) => e.preventDefault}>
+                <ModalInput
                   type="text"
-                  id="formlogin"
                   value={loginData.login}
                   onChange={handleInputChange}
                   name="login"
                   placeholder="Эл. почта"
                 />
-                <input
-                  className="modal__input"
+                <ModalInput
                   type="password"
-                  id="formpassword"
                   value={loginData.password}
                   onChange={handleInputChange}
                   name="password"
                   placeholder="Пароль"
                 />
-
+                {isError && (
+                  <ModalMessageError>
+                    Введенные вами данные не распознаны. Проверьте свой логин и
+                    пароль и повторите попытку входа.
+                  </ModalMessageError>
+                )}
                 <ModalButtonEnter onClick={handleLogin}>Войти</ModalButtonEnter>
-
                 <ModalFormGroup>
                   <p>Нужно зарегистрироваться?</p>
                   <Link to={appRoutes.REGISTER}>Регистрируйтесь здесь</Link>

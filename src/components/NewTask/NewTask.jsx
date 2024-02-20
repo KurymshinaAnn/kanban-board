@@ -1,26 +1,38 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-import Calendar from "../calendar/calendar";
+import Calendar from "../Calendar/Calendar";
 import { createTask } from "../../api/api";
 import { useUser } from "../../hooks/useUser";
 import { useTasks } from "../../hooks/useTasks";
+import { appRoutes } from "../../lib/appRoutes";
 
 import {
+  CardCalendar,
+  CardCalendarBlock,
+  CategoriesSubTitle,
+  CategoriesTheme,
+  CategoriesThemes,
+  FormNewArea,
   FormNewBlock,
   FormNewCreate,
+  FormNewInput,
+  GreenLabel,
   NewCardBlock,
+  NewCardCategories,
   NewCardClose,
   NewCardContent,
   NewCardForm,
   NewCardTitle,
   NewCardWrap,
+  OrangeLabel,
+  PurpleLabel,
   SubTitle,
 } from "./NewTask.styled";
 
-
 function NewTask() {
-  const {user} = useUser();
-  const {refreshTasks} = useTasks();
+  const { user } = useUser();
+  const { refreshTasks } = useTasks();
 
   const [selected, setSelected] = useState();
 
@@ -49,18 +61,12 @@ function NewTask() {
       token: user.token,
     })
       .then((data) => {
-        refreshTasks(data.tasks)
+        refreshTasks(data.tasks);
       })
       .catch(() => {
         alert("Ошибка");
       });
   };
-
-  // if поле вода пусто,то заполни его, функция для проверки заполнения полей
-  // надо сделать котекст для карточки, как мы это делали с юзерскими карточками
-  // адаптировать приложение  для получения данных из контекста
-  // надо реализовать добавление карточки, из контекста
-  // надо получать данные из контекста
 
   let originalTask = {
     ...newUserTask,
@@ -72,15 +78,16 @@ function NewTask() {
     <NewCardBlock>
       <NewCardContent>
         <NewCardTitle>Создание задачи</NewCardTitle>
-        <NewCardClose>&#10006;</NewCardClose>
-        <NewCardWrap>
+        <NewCardClose>
+          <Link to={appRoutes.MAIN}>&#10006;</Link>
+        </NewCardClose>
+        <NewCardWrap> 
           <NewCardForm>
             <FormNewBlock>
               <SubTitle>Название задачи</SubTitle>
-              <input
+              <FormNewInput
                 value={newUserTask.title}
                 onChange={handleInputChange}
-                className="form-new__input"
                 name="title"
                 id="formTitle"
                 placeholder="Введите название задачи..."
@@ -88,66 +95,69 @@ function NewTask() {
             </FormNewBlock>
             <FormNewBlock>
               <SubTitle>Описание задачи</SubTitle>
-              <textarea
+              <FormNewArea
                 value={newUserTask.description}
                 onChange={handleInputChange}
-                className="form-new__area"
                 name="description"
-                id="textArea"
                 placeholder="Введите описание задачи..."
-              ></textarea>
+              ></FormNewArea>
             </FormNewBlock>
           </NewCardForm>
-          <div className="pop-new-card__calendar calendar">
-            {/* <p className="calendar__ttl subttl">Даты</p> */}
+          <CardCalendarBlock>
+            <CardCalendar>Даты</CardCalendar>
             <Calendar selected={selected} setSelected={setSelected} />
-          </div>
+          </CardCalendarBlock>
         </NewCardWrap>
-        <div className="pop-new-card__categories categories">
-          <p className="categories__p subttl">Категория</p>
-          <div className="categories__themes">
-            {/* <div className="categories__theme _orange _active-category">
-              <p className="_orange">Web Design</p>
-            </div>
-            <div className="categories__theme _green">
-              <p className="_green">Research</p>
-            </div>
-            <div className="categories__theme _purple">
-              <p className="_purple">Copywriting</p>
-            </div> */}
-
-            <div className="prod_checbox">
-              <div className="radio-toolbar">
-                <input
-                  value="Web Design"
-                  name="topic"
-                  onChange={handleInputChange}
-                  type="radio"
-                  id="radio1"
-                />
-                <label htmlFor="radio1">Web Design</label>
-
-                <input
-                  value="Research"
-                  name="topic"
-                  onChange={handleInputChange}
-                  type="radio"
-                  id="radio2"
-                />
-                <label htmlFor="radio2">Research</label>
-
-                <input
-                  value="Copywriting"
-                  name="topic"
-                  onChange={handleInputChange}
-                  type="radio"
-                  id="radio3"
-                />
-                <label htmlFor="radio3">Copywriting</label>
-              </div>
-            </div>
-          </div>
-        </div>
+        <NewCardCategories>
+          <CategoriesSubTitle>Категория</CategoriesSubTitle>
+          <CategoriesThemes>
+            <CategoriesTheme>
+              <input
+                value="Web Design"
+                name="topic"
+                onChange={handleInputChange}
+                type="radio"
+                id="web-design-radio"
+              />
+              <OrangeLabel
+                $active={newUserTask.topic === "Web Design"}
+                htmlFor="web-design-radio"
+              >
+                Web Design
+              </OrangeLabel>
+            </CategoriesTheme>
+            <CategoriesTheme>
+              <input
+                value="Research"
+                name="topic"
+                onChange={handleInputChange}
+                type="radio"
+                id="research-radio"
+              />
+              <GreenLabel
+                $active={newUserTask.topic === "Research"}
+                htmlFor="research-radio"
+              >
+                Research
+              </GreenLabel>
+            </CategoriesTheme>
+            <CategoriesTheme>
+              <input
+                value="Copywriting"
+                name="topic"
+                onChange={handleInputChange}
+                type="radio"
+                id="copyright-radio"
+              />
+              <PurpleLabel
+                $active={newUserTask.topic === "Copywriting"}
+                htmlFor="copyright-radio"
+              >
+                Copywriting
+              </PurpleLabel>
+            </CategoriesTheme>
+          </CategoriesThemes>
+        </NewCardCategories>
         <FormNewCreate onClick={handleCreateTask}>Создать задачу</FormNewCreate>
       </NewCardContent>
     </NewCardBlock>

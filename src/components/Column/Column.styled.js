@@ -5,6 +5,8 @@ export const MainColumn = styled.div`
   width: 20%;
   margin: 0 auto;
   display: block;
+  background-color: ${(props) => (props.$over ? "#e2ebfe" : "transparent")};
+  border-radius: ${(props) => (props.$over ? "10px" : "transparent")};
 
   @media (max-width: ${breakpoints.xl}px) {
     width: 100%;

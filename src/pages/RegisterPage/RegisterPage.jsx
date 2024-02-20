@@ -13,13 +13,15 @@ import {
   ModalFormGroup,
   ModalFormLogin,
   ModalTitle,
+  ModalMessageError,
+  ModalInput,
 } from "./RegisterPage.styled";
 
 import { GlobalStyled } from "../../Global.styled";
-import "../../../css/signup.css";
 
 function RegisterPage() {
-  const {loginUser} = useUser();
+  const { loginUser } = useUser();
+  const [isError, setIsError] = useState(false);
 
   const registerForm = {
     name: "",
@@ -30,6 +32,7 @@ function RegisterPage() {
   const [registerData, setRegisterData] = useState(registerForm);
 
   const handleRegister = async (e) => {
+    setIsError(false);
     e.preventDefault();
     await registration(registerData)
       .then((data) => {
@@ -37,6 +40,7 @@ function RegisterPage() {
         loginUser(data.user);
       })
       .catch((error) => {
+        setIsError(true);
         console.warn(error);
       });
   };
@@ -53,7 +57,6 @@ function RegisterPage() {
   return (
     <>
       <GlobalStyled />
-
       <Wrapper>
         <ContainerSignup>
           <Modal>
@@ -62,38 +65,36 @@ function RegisterPage() {
                 <h2>Регистрация</h2>
               </ModalTitle>
               <ModalFormLogin>
-                <input
-                  className="modal__input first-name"
+                <ModalInput
                   type="text"
-                  id="name"
                   value={registerData.name}
                   onChange={handleInputChange}
                   name="name"
                   placeholder="Имя"
                 />
-                <input
-                  className="modal__input login"
+                <ModalInput
                   type="text"
-                  id="loginReg"
                   value={registerData.login}
                   onChange={handleInputChange}
                   name="login"
                   placeholder="Эл. почта"
                 />
-                <input
-                  className="modal__input password-first"
+                <ModalInput
                   type="password"
-                  id="passwordFirst"
                   value={registerData.password}
                   onChange={handleInputChange}
                   name="password"
                   placeholder="Пароль"
                 />
-
+                {isError && (
+                  <ModalMessageError>
+                    Введенные вами данные не корректны. Чтобы завершить
+                    регистрацию, введите данные корректно и повторите попытку.
+                  </ModalMessageError>
+                )}
                 <ModalButtonSignupEnter onClick={handleRegister}>
                   Зарегистрироваться
                 </ModalButtonSignupEnter>
-
                 <ModalFormGroup>
                   <p>Уже есть аккаунт?</p>
                   <Link to={appRoutes.LOGIN}>Войдите здесь</Link>

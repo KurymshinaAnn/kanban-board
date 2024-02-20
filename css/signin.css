@@ -96,14 +96,14 @@ a {
   /* margin-bottom: 7px; */
 }
 .modal__input {
-  width: 100%;
+  /* width: 100%;
   min-width: 100%;
   border-radius: 8px;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   outline: none;
-  padding: 10px 8px;
+  padding: 10px 8px; */
 }
-.modal__input::-moz-placeholder {
+/* .modal__input::-moz-placeholder {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 14px;
@@ -118,7 +118,7 @@ a {
   line-height: 21px;
   letter-spacing: -0.28px;
   color: #94A6BE;
-}
+} */
 .modal__btn-enter {
   /* width: 100%;
   height: 30px;
@@ -162,17 +162,17 @@ a {
 
 @media screen and (max-width: 375px) {
   .modal {
-    background-color: #FFFFFF;
+    /* background-color: #FFFFFF; */
   }
   .modal__block {
-    max-width: 368px;
+    /* max-width: 368px;
     width: 100%;
     padding: 0 16px;
     border-radius: none;
     border: none;
-    box-shadow: none;
+    box-shadow: none; */
   }
   .modal__btn-enter {
-    height: 40px;
+    /* height: 40px; */
   }
 }

@@ -2,15 +2,17 @@ import styled from "styled-components";
 import { themeStyles } from "../../lib/theme";
 import { breakpoints } from "../../lib/breakpoints";
 
-export const CardItem = styled.div`
+export const CardItem = styled.div.attrs((props) => ({
+  style: {
+    transform: props.$transform
+      ? `translate3d(${props.$transform.x}px, ${props.$transform.y}px, 0)`
+      : "none",
+  },
+}))`
   padding: 5px;
   animation-name: card-animation;
   animation-duration: 500ms;
   animation-timing-function: linear;
-
-  @media (max-width: ${breakpoints.md}px) {
-    background: #e9d4ff;
-  }
 `;
 
 export const CardWrapper = styled.div`
@@ -38,16 +40,19 @@ export const CardWrapper = styled.div`
 `;
 
 export const ThemeLabelText = styled.p`
-  font-size: 10px;
+  font-size: ${(props) => (props.$large ? "14px" : "10px")};
   font-weight: 600;
-  line-height: 10px;
+  line-height: ${(props) => (props.$large ? "14px" : "10px")};
+  white-space: nowrap;
 `;
 
 export const CardTheme = styled.div`
   width: auto;
-  height: 20px;
-  padding: 5px 14px;
-  border-radius: 18px;
+  height: ${(props) => (props.$large ? "30px" : "20px")};
+  padding: ${(props) => (props.$large ? "8px 20px" : "5px 14px")};
+  border-radius: ${(props) => (props.$large ? "24px" : "18px")};
+  margin-right: ${(props) => (props.$large ? "7px" : "none")};
+
   background-color: ${({ $themeColor }) =>
     themeStyles[$themeColor]?.backgroundColor || "#94a6be"};
 
